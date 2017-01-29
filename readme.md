@@ -40,7 +40,7 @@ Pokud již máte nainstalovaný IoT Core, to přeskočte to k bodu *2.2.2*.
 ### Instalace IoT Core
 1. Jděte na stránku [Microsoftu](https://developer.microsoft.com/en-us/windows/iot/downloads) a klikněte na **Get Windows 10 IoT Core Dashboard** a stáhněte.
 
-![DashboardDownload](images/DashboardDownload.png)
+![DashboardDownload](images/DashboardDownload.PNG)
 
 2. Připojte formátovanou SD kartu do PC.
 3. Nainstalujte a otevřete **Windows 10 IoT Core Dashboard**
@@ -50,7 +50,7 @@ Pokud již máte nainstalovaný IoT Core, to přeskočte to k bodu *2.2.2*.
 Dále máte možnost si předkonfigurovat Wifi připojení, aby se Vám Raspberry připojilo automaticky k internetu.
 6. Klikněte na **Donwload and install** a vyčkejte.
 
-![Dashboard](images/Dashboard.png)
+![Dashboard](images/Dashboard.PNG)
 
 7. Vložte SD kartu do Raspberry a strčte napájecí kabel.
 8. **Hotovo!**
@@ -60,7 +60,7 @@ Dále máte možnost si předkonfigurovat Wifi připojení, aby se Vám Raspberr
 1. Otevřete **Windows 10 IoT Core IoT Dashboard** 
 2. V záložce *My devices* byjste měli vidět Vaše Raspberry
 
-![Dashboard](images/Dashboard.png)
+![Dashboard](images/Dashboard.PNG)
 
 3. Klikněte na vaše zařízení pravým tlačítkem a zvolte *Open in Device Portal*.
 To Váš přesměruje do prohlížeče, kde vyplňte své heslo co jste nastavili při nahrávání OS na SD kartu a jméno ze začátku je *administrator*.
@@ -76,7 +76,7 @@ Zde jdou vidět běžíci aplikace na Raspberry Pi.
 
 7. Zmáčkněte tlačítko **Go** a aplikace by se měla začít nahrávat na Raspberry Pi.
 
-![AppManager](images/AppManager.png)
+![AppManager](images/AppManager.PNG)
 
 8. Nyní by aplikace **BigClown** měla být vidět mezi ostatními. 
 Po té co zaškrtnete *Set as Default App* bude se aplikace spouštět při startu Raspberry Pi jako hlavní.
