@@ -39,6 +39,7 @@ namespace BigClownAppTV.ViewModel
         #region Local variables
         private Mqtt _mqtt;
         private DB _db;
+        private GraphQueue<Unit> _queue;
         private Queue<Unit> _thermometer; 
         private Queue<Unit> _lux_meter;
         private Queue<Unit> _humidity_sensor;
@@ -79,24 +80,31 @@ namespace BigClownAppTV.ViewModel
         public MainViewModel()
         {
             _db = new DB();
+            
             _thermometer = new Queue<Unit>();
             _lux_meter = new Queue<Unit>();
             _humidity_sensor = new Queue<Unit>();
             _barometer_altitude = new Queue<Unit>();
             _barometer_pressure = new Queue<Unit>();
 
+            _queue = new GraphQueue<Unit>(1, 3600, _thermometer, _lux_meter, _humidity_sensor, _barometer_altitude, _barometer_pressure);
 
             Connect = new ConnectCommand(BrokerConnection);
 
             StartSetup();
-
         }
 
         async void StartSetup()
         {
 
-            UnitCollection = new ObservableCollection<Unit>(_thermometer);  //(_queue.Peek() as ObservableCollection<Unit>);
+            //UnitCollection = new ObservableCollection<Unit>(_thermometer);  //(_queue.Peek() as ObservableCollection<Unit>);
 
+            _queue.GraphHandler += (sender, args) =>
+            {
+                UnitCollection = new ObservableCollection<Unit>(args.List);
+                GraphHeader = args.Header;
+                GraphValue = args.Label;
+            };
 #region hide
             /*
             await Task.Run(() =>
@@ -292,7 +300,6 @@ namespace BigClownAppTV.ViewModel
             }
 
         }
-
 
         Task<Mqtt> ConnectIt()
         {

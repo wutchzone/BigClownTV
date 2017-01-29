@@ -1,8 +1,9 @@
 ﻿using System;
+using BigClownAppTV.Interfaces;
 
 namespace BigClownAppTV.Model
 {
-    public class Unit
+    public class Unit : IUnit
     {
         public string Header { get; set; }
         public float Value { get; set; }
