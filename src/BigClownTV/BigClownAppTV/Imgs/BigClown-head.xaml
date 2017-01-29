@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="hlava" Width="633.333" Height="929.333" Clip="F1 M 0,0L 633.333,0L 633.333,929.333L 0,929.333L 0,0">
+	<Canvas x:Name="hlava_0" Width="633.333" Height="929.333" Canvas.Left="0" Canvas.Top="0">
+		<Image x:Name="Image" Source="BigClown-head_files/image0.png" Width="594" Height="871" Canvas.Left="0" Canvas.Top="0">
+			<Image.RenderTransform>
+				<TransformGroup>
+					<MatrixTransform Matrix="1.06667,0,0,1.06667,5.08626e-006,0.266512"/>
+				</TransformGroup>
+			</Image.RenderTransform>
+		</Image>
+	</Canvas>
+</Canvas>
