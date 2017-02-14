@@ -79,7 +79,7 @@ namespace BigClownAppTV.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            _db = new DB();
+            //_db = new DB();
             
             _thermometer = new Queue<Unit>();
             _lux_meter = new Queue<Unit>();
@@ -87,7 +87,7 @@ namespace BigClownAppTV.ViewModel
             _barometer_altitude = new Queue<Unit>();
             _barometer_pressure = new Queue<Unit>();
 
-            _queue = new GraphQueue<Unit>(1, 3600, _thermometer, _lux_meter, _humidity_sensor, _barometer_altitude, _barometer_pressure);
+            _queue = new GraphQueue<Unit>(10, 86399, _thermometer, _lux_meter, _humidity_sensor, _barometer_altitude, _barometer_pressure);
 
             Connect = new ConnectCommand(BrokerConnection);
 
@@ -175,88 +175,88 @@ namespace BigClownAppTV.ViewModel
 
         void ConfigureMqtt()
         {
-            _mqtt.MessageRecieved += (sender, args) =>
+            _mqtt.MessageRecieved += async (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine("Message accepted from MQTT");
                 if (args.Unit.Label == "°C")
                 {
-                    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
                         CoreDispatcherPriority.Normal,
                         () =>
                         {
                             _thermometer.Enqueue(args.Unit);                           
                         });
-                    _db.Insert(new DB.Temperature()
-                    {
-                        Header = args.Unit.Header,
-                        Value = args.Unit.Value,
-                        Label = args.Unit.Label,
-                        Time = args.Unit.Time
-                    });
+                    //_db.Insert(new DB.Temperature()
+                    //{
+                    //    Header = args.Unit.Header,
+                    //    Value = args.Unit.Value,
+                    //    Label = args.Unit.Label,
+                    //    Time = args.Unit.Time
+                    //});
                 }
                 else if (args.Unit.Label == "lux")
                 {
-                    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
                         CoreDispatcherPriority.Normal,
                         () =>
                         {
                             _lux_meter.Enqueue(args.Unit);
                         });
-                    _db.Insert(new DB.Lux()
-                    {
-                        Header = args.Unit.Header,
-                        Value = args.Unit.Value,
-                        Label = args.Unit.Label,
-                        Time = args.Unit.Time
-                    });
+                    //_db.Insert(new DB.Lux()
+                    //{
+                    //    Header = args.Unit.Header,
+                    //    Value = args.Unit.Value,
+                    //    Label = args.Unit.Label,
+                    //    Time = args.Unit.Time
+                    //});
                 }
                 else if (args.Unit.Label == "%")
                 {
-                    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
                         CoreDispatcherPriority.Normal,
                         () =>
                         {
                             _humidity_sensor.Enqueue(args.Unit);
                         });
-                    _db.Insert(new DB.Humidity()
-                    {
-                        Header = args.Unit.Header,
-                        Value = args.Unit.Value,
-                        Label = args.Unit.Label,
-                        Time = args.Unit.Time
-                    });
+                    //_db.Insert(new DB.Humidity()
+                    //{
+                    //    Header = args.Unit.Header,
+                    //    Value = args.Unit.Value,
+                    //    Label = args.Unit.Label,
+                    //    Time = args.Unit.Time
+                    //});
                 }
                 else if (args.Unit.Label == "m")
                 {
-                    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
                         CoreDispatcherPriority.Normal,
                         () =>
                         {
                             _barometer_altitude.Enqueue(args.Unit);
                         });
-                    _db.Insert(new DB.Altitude()
-                    {
-                        Header = args.Unit.Header,
-                        Value = args.Unit.Value,
-                        Label = args.Unit.Label,
-                        Time = args.Unit.Time
-                    });
+                    //_db.Insert(new DB.Altitude()
+                    //{
+                    //    Header = args.Unit.Header,
+                    //    Value = args.Unit.Value,
+                    //    Label = args.Unit.Label,
+                    //    Time = args.Unit.Time
+                    //});
                 }
                 else if (args.Unit.Label == "kPa")
                 {
-                    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                   await  Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
                         CoreDispatcherPriority.Normal,
                         () =>
                         {
                             _barometer_pressure.Enqueue(args.Unit);
                         });
-                    _db.Insert(new DB.Pressure()
-                    {
-                        Header = args.Unit.Header,
-                        Value = args.Unit.Value,
-                        Label = args.Unit.Label,
-                        Time = args.Unit.Time
-                    });                   
+                    //_db.Insert(new DB.Pressure()
+                    //{
+                    //    Header = args.Unit.Header,
+                    //    Value = args.Unit.Value,
+                    //    Label = args.Unit.Label,
+                    //    Time = args.Unit.Time
+                    //});                   
                 }
             };
         }
