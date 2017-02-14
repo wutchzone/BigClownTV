@@ -81,18 +81,13 @@
                 </Viewbox>
                 <Viewbox Grid.Row="1" Grid.Column="1" Name="Graph">
                     <charts:SfChart Header="{Binding Path=GraphHeader}">
-                       
                         <charts:SfChart.PrimaryAxis>
-                            <charts:DateTimeAxis IntervalType="Hours" Header="Time"/>
+                            <charts:DateTimeAxis Header="Time" Interval="1" LabelFormat="HH" IntervalType="Hours"/>
                         </charts:SfChart.PrimaryAxis>
-
                         <charts:SfChart.SecondaryAxis>
                             <charts:NumericalAxis StartRangeFromZero="False" OpposedPosition="True" RangePadding="Normal" LabelFormat="##.##" Header="{Binding Path=GraphValue}"/>
                         </charts:SfChart.SecondaryAxis>
-
-                        <charts:FastLineSeries ItemsSource="{Binding Path=UnitCollection}" Interior="Red"  XBindingPath="Time" YBindingPath="Value"/>
-
-
+                        <charts:FastLineSeries ItemsSource="{Binding Path=UnitCollection}" Interior="Red"  XBindingPath="Time" YBindingPath="Value" />
                     </charts:SfChart>
                 </Viewbox>
             </Grid>
