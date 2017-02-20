@@ -3,17 +3,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
     <UseEmulator>false</UseEmulator>
-    <RemoteDebugMachine>DanikPi</RemoteDebugMachine>
+    <RemoteDebugMachine>10.0.0.56</RemoteDebugMachine>
     <AuthenticationMode>Universal</AuthenticationMode>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <CreateCleanLayout>true</CreateCleanLayout>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
-    <UseEmulator>true</UseEmulator>
+    <UseEmulator>false</UseEmulator>
+    <RemoteDebugMachine>DanikPi</RemoteDebugMachine>
+    <AuthenticationMode>Universal</AuthenticationMode>
+    <RemoteDebugEnabled>true</RemoteDebugEnabled>
   </PropertyGroup>
   <PropertyGroup>
     <AppxPackageIsForStore>False</AppxPackageIsForStore>
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>arm</AppxBuildConfigurationSelection>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'remoteDebuging|ARM'">
+    <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
+    <UseEmulator>false</UseEmulator>
+    <RemoteDebugMachine>10.0.0.56</RemoteDebugMachine>
+    <AuthenticationMode>Universal</AuthenticationMode>
+    <RemoteDebugEnabled>true</RemoteDebugEnabled>
   </PropertyGroup>
 </Project>

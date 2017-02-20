@@ -2,8 +2,7 @@
   "dependencies": {
     "M2Mqtt": "4.3.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
-    "Newtonsoft.Json": "9.0.1",
-    "SQLite.Net-PCL": "3.1.1"
+    "Newtonsoft.Json": "9.0.1"
   },
   "frameworks": {
     "uap10.0": {}

@@ -72,7 +72,6 @@ namespace BigClownAppTV.Model
                     {
                         if (_graphs.Peek().Peek().Time < DateTime.UtcNow.AddSeconds(-_persisTime))
                         {
-                            //System.Diagnostics.Debug.WriteLine(_graphs.Peek().Peek().Time + " collection: " + _graphs.Peek());
                             _graphs.Peek().Dequeue();
                         }
                         else
@@ -95,7 +94,7 @@ namespace BigClownAppTV.Model
         /// <typeparam name="T"></typeparam>
         public class GraphQueueEventArgs<T> : EventArgs
         {
-            public Queue<T> List { get; set; } // configure
+            public Queue<T> List { get; private set; } 
             public string Header { get; set; }
             public string Label { get; set; }
 

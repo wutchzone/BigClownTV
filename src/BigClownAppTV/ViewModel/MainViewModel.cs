@@ -38,7 +38,6 @@ namespace BigClownAppTV.ViewModel
         /// </summary>
         #region Local variables
         private Mqtt _mqtt;
-        private DB _db;
         private GraphQueue<Unit> _queue;
         private Queue<Unit> _thermometer; 
         private Queue<Unit> _lux_meter;
@@ -79,105 +78,34 @@ namespace BigClownAppTV.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            //_db = new DB();
-            
+
             _thermometer = new Queue<Unit>();
             _lux_meter = new Queue<Unit>();
             _humidity_sensor = new Queue<Unit>();
             _barometer_altitude = new Queue<Unit>();
             _barometer_pressure = new Queue<Unit>();
 
-            _queue = new GraphQueue<Unit>(10, 86399, _thermometer, _lux_meter, _humidity_sensor, _barometer_altitude, _barometer_pressure);
+            _queue = new GraphQueue<Unit>(10, 86399, _thermometer, _humidity_sensor, _barometer_altitude, _barometer_pressure, _lux_meter);
 
             Connect = new ConnectCommand(BrokerConnection);
 
-            StartSetup();
-        }
-
-        async void StartSetup()
-        {
-
-            //UnitCollection = new ObservableCollection<Unit>(_thermometer);  //(_queue.Peek() as ObservableCollection<Unit>);
-
+            IpAddress = "10.0.0.40";
+            
             _queue.GraphHandler += (sender, args) =>
             {
                 UnitCollection = new ObservableCollection<Unit>(args.List);
                 GraphHeader = args.Header;
                 GraphValue = args.Label;
+                System.Diagnostics.Debug.WriteLine(DateTime.Now + " a pole: " + args.Header);
             };
-#region hide
-            /*
-            await Task.Run(() =>
-            {
-                foreach (var a in _db.Table<DB.Temperature>())
-                {
-                    if (a.Time < DateTime.UtcNow.AddMinutes(-1)) continue;
-                    _thermometer.Add(new Unit() { Header = a.Header, Label = a.Label, Time = a.Time, Value = a.Value });
-                    System.Diagnostics.Debug.WriteLine("Temperature" + a.Id);
 
-                }
-            });
-
-            await Task.Run(() =>
-            {
-                foreach (var a in _db.Table<DB.Altitude>())
-                {
-                    if (a.Time < DateTime.UtcNow.AddMinutes(-1)) continue;
-                    _barometer_altitude.Add(new Unit()
-                    {
-                        Header = a.Header,
-                        Label = a.Label,
-                        Time = a.Time,
-                        Value = a.Value
-                    });
-                    System.Diagnostics.Debug.WriteLine("Altitude");
-                }
-            });
-
-            await Task.Run(() =>
-            {
-                foreach (var a in _db.Table<DB.Humidity>())
-                {
-                    if (a.Time < DateTime.UtcNow.AddMinutes(-1)) continue;
-                    _humidity_sensor.Add(new Unit() { Header = a.Header, Label = a.Label, Time = a.Time, Value = a.Value });
-                    System.Diagnostics.Debug.WriteLine("Humidity");
-                }
-            });
-
-            await Task.Run(() =>
-            {
-                foreach (var a in _db.Table<DB.Lux>())
-                {
-                    if (a.Time < DateTime.UtcNow.AddMinutes(-1)) continue;
-                    _lux_meter.Add(new Unit() { Header = a.Header, Label = a.Label, Time = a.Time, Value = a.Value });
-                    System.Diagnostics.Debug.WriteLine("Lux");
-                }
-            });
-
-            await Task.Run(() =>
-            {
-                foreach (var a in _db.Table<DB.Pressure>())
-                {
-                    if (a.Time < DateTime.UtcNow.AddMinutes(-1)) continue;
-                    _barometer_pressure.Add(new Unit()
-                    {
-                        Header = a.Header,
-                        Label = a.Label,
-                        Time = a.Time,
-                        Value = a.Value
-                    });
-                    System.Diagnostics.Debug.WriteLine("Pressure");
-                }
-            });*/
-#endregion
-            System.Diagnostics.Debug.WriteLine("Hotovo");            
+            Connect.Execute(ConnectCommand.ConnectStatus.Connect);
         }
 
         void ConfigureMqtt()
         {
             _mqtt.MessageRecieved += async (sender, args) =>
             {
-                System.Diagnostics.Debug.WriteLine("Message accepted from MQTT");
                 if (args.Unit.Label == "°C")
                 {
                     await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
@@ -186,13 +114,6 @@ namespace BigClownAppTV.ViewModel
                         {
                             _thermometer.Enqueue(args.Unit);                           
                         });
-                    //_db.Insert(new DB.Temperature()
-                    //{
-                    //    Header = args.Unit.Header,
-                    //    Value = args.Unit.Value,
-                    //    Label = args.Unit.Label,
-                    //    Time = args.Unit.Time
-                    //});
                 }
                 else if (args.Unit.Label == "lux")
                 {
@@ -202,13 +123,6 @@ namespace BigClownAppTV.ViewModel
                         {
                             _lux_meter.Enqueue(args.Unit);
                         });
-                    //_db.Insert(new DB.Lux()
-                    //{
-                    //    Header = args.Unit.Header,
-                    //    Value = args.Unit.Value,
-                    //    Label = args.Unit.Label,
-                    //    Time = args.Unit.Time
-                    //});
                 }
                 else if (args.Unit.Label == "%")
                 {
@@ -218,13 +132,6 @@ namespace BigClownAppTV.ViewModel
                         {
                             _humidity_sensor.Enqueue(args.Unit);
                         });
-                    //_db.Insert(new DB.Humidity()
-                    //{
-                    //    Header = args.Unit.Header,
-                    //    Value = args.Unit.Value,
-                    //    Label = args.Unit.Label,
-                    //    Time = args.Unit.Time
-                    //});
                 }
                 else if (args.Unit.Label == "m")
                 {
@@ -234,13 +141,6 @@ namespace BigClownAppTV.ViewModel
                         {
                             _barometer_altitude.Enqueue(args.Unit);
                         });
-                    //_db.Insert(new DB.Altitude()
-                    //{
-                    //    Header = args.Unit.Header,
-                    //    Value = args.Unit.Value,
-                    //    Label = args.Unit.Label,
-                    //    Time = args.Unit.Time
-                    //});
                 }
                 else if (args.Unit.Label == "kPa")
                 {
@@ -249,14 +149,7 @@ namespace BigClownAppTV.ViewModel
                         () =>
                         {
                             _barometer_pressure.Enqueue(args.Unit);
-                        });
-                    //_db.Insert(new DB.Pressure()
-                    //{
-                    //    Header = args.Unit.Header,
-                    //    Value = args.Unit.Value,
-                    //    Label = args.Unit.Label,
-                    //    Time = args.Unit.Time
-                    //});                   
+                        });               
                 }
             };
         }

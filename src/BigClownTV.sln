@@ -13,6 +13,9 @@ Global
 		Release|ARM = Release|ARM
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		remoteDebuging|ARM = remoteDebuging|ARM
+		remoteDebuging|x64 = remoteDebuging|x64
+		remoteDebuging|x86 = remoteDebuging|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Debug|ARM.ActiveCfg = Debug|ARM
@@ -26,12 +29,21 @@ Global
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Debug|x86.Deploy.0 = Debug|x86
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|ARM.ActiveCfg = Release|ARM
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|ARM.Build.0 = Release|ARM
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|ARM.Deploy.0 = Release|ARM
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|x64.ActiveCfg = Release|x64
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|x64.Build.0 = Release|x64
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|x64.Deploy.0 = Release|x64
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|x86.ActiveCfg = Release|x86
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|x86.Build.0 = Release|x86
 		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.Release|x86.Deploy.0 = Release|x86
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.remoteDebuging|ARM.ActiveCfg = remoteDebuging|ARM
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.remoteDebuging|ARM.Deploy.0 = remoteDebuging|ARM
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.remoteDebuging|x64.ActiveCfg = remoteDebuging|x64
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.remoteDebuging|x64.Build.0 = remoteDebuging|x64
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.remoteDebuging|x64.Deploy.0 = remoteDebuging|x64
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.remoteDebuging|x86.ActiveCfg = remoteDebuging|x86
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.remoteDebuging|x86.Build.0 = remoteDebuging|x86
+		{506D0E36-A666-4841-8DA8-9C0F4CD2B32D}.remoteDebuging|x86.Deploy.0 = remoteDebuging|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

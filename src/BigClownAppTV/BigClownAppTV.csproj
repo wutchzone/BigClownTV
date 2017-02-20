@@ -108,7 +108,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\DB.cs" />
     <Compile Include="Model\GraphQueue.cs" />
     <Compile Include="Model\Mqtt.cs" />
     <Compile Include="Model\Unit.cs" />
@@ -168,6 +167,15 @@
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'remoteDebuging|x86'">
+    <OutputPath>bin\x86\remoteDebuging\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'remoteDebuging|ARM'">
+    <OutputPath>bin\ARM\remoteDebuging\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'remoteDebuging|x64'">
+    <OutputPath>bin\x64\remoteDebuging\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

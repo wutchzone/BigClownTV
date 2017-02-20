@@ -1,5 +1,5 @@
-src/BigClownTV/.vs/
-src/BigClownTV/BigClownTV.sln.DotSettings.user
-src/BigClownTV/BigClownAppTV/bin
-src/BigClownTV/BigClownAppTV/AppPackages
-src/BigClownTV/BigClownAppTV/obj
+src/.vs/
+src/BigClownTV.sln.DotSettings.user
+src/BigClownAppTV/bin
+src/BigClownAppTV/AppPackages
+src/BigClownAppTV/obj
