@@ -70,12 +70,15 @@ namespace BigClownAppTV.Model
 
                     while (true)
                     {
-                        if (_graphs.Peek().Peek().Time < DateTime.UtcNow.AddSeconds(-_persisTime))
+                        if (_graphs.Peek().Peek().Time < DateTime.UtcNow.Subtract(new TimeSpan(0,0,0,_persisTime)))
                         {
+                            System.Diagnostics.Debug.WriteLine("Removed " + _graphs.Peek().Peek().Time);
                             _graphs.Peek().Dequeue();
+                            
                         }
                         else
                         {
+                            System.Diagnostics.Debug.WriteLine("Nothing to remove");
                             break;
                         }
                     }

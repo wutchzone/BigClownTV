@@ -39,7 +39,7 @@ namespace BigClownAppTV.ViewModel
         #region Local variables
         private Mqtt _mqtt;
         private GraphQueue<Unit> _queue;
-        private Queue<Unit> _thermometer; 
+        private Queue<Unit> _thermometer;
         private Queue<Unit> _lux_meter;
         private Queue<Unit> _humidity_sensor;
         private Queue<Unit> _barometer_altitude;
@@ -85,18 +85,19 @@ namespace BigClownAppTV.ViewModel
             _barometer_altitude = new Queue<Unit>();
             _barometer_pressure = new Queue<Unit>();
 
-            _queue = new GraphQueue<Unit>(10, 86399, _thermometer, _humidity_sensor, _barometer_altitude, _barometer_pressure, _lux_meter);
+            //86399
+            _queue = new GraphQueue<Unit>(10, 28800, _thermometer, _humidity_sensor, _barometer_altitude, _barometer_pressure, _lux_meter);
 
             Connect = new ConnectCommand(BrokerConnection);
 
             IpAddress = "10.0.0.40";
-            
+
             _queue.GraphHandler += (sender, args) =>
             {
                 UnitCollection = new ObservableCollection<Unit>(args.List);
                 GraphHeader = args.Header;
                 GraphValue = args.Label;
-                System.Diagnostics.Debug.WriteLine(DateTime.Now + " a pole: " + args.Header);
+
             };
 
             Connect.Execute(ConnectCommand.ConnectStatus.Connect);
@@ -104,53 +105,29 @@ namespace BigClownAppTV.ViewModel
 
         void ConfigureMqtt()
         {
-            _mqtt.MessageRecieved += async (sender, args) =>
+            _mqtt.MessageRecieved += (sender, args) =>
             {
-                if (args.Unit.Label == "°C")
-                {
-                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-                        CoreDispatcherPriority.Normal,
-                        () =>
+                        if (args.Unit.Label == "°C")
                         {
-                            _thermometer.Enqueue(args.Unit);                           
-                        });
-                }
-                else if (args.Unit.Label == "lux")
-                {
-                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-                        CoreDispatcherPriority.Normal,
-                        () =>
+                            _thermometer.Enqueue(args.Unit);
+
+                        }
+                        else if (args.Unit.Label == "lux")
                         {
                             _lux_meter.Enqueue(args.Unit);
-                        });
-                }
-                else if (args.Unit.Label == "%")
-                {
-                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-                        CoreDispatcherPriority.Normal,
-                        () =>
+                        }
+                        else if (args.Unit.Label == "%")
                         {
                             _humidity_sensor.Enqueue(args.Unit);
-                        });
-                }
-                else if (args.Unit.Label == "m")
-                {
-                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-                        CoreDispatcherPriority.Normal,
-                        () =>
+                        }
+                        else if (args.Unit.Label == "m")
                         {
                             _barometer_altitude.Enqueue(args.Unit);
-                        });
-                }
-                else if (args.Unit.Label == "kPa")
-                {
-                   await  Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-                        CoreDispatcherPriority.Normal,
-                        () =>
+                        }
+                        else if (args.Unit.Label == "kPa")
                         {
                             _barometer_pressure.Enqueue(args.Unit);
-                        });               
-                }
+                        }
             };
         }
 
